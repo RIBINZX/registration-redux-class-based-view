@@ -21,6 +21,13 @@ urlpatterns = [
     path("book_detail/<str:pk>/", views.BookDetail.as_view(), name="book_detail"),
     path("book_update/<str:pk>/", views.BookUpdate.as_view(), name="book_update"),
     path("book_delete/<str:pk>/", views.BookDelete.as_view(), name="book_delete"),
+    
+    path("author_create/", views.AuthorCreate.as_view(), name="author_create"),
+    path("author_list/", views.AuthorList.as_view(), name="author_list"),
+    path("author_detail/<str:pk>/", views.AuthorDetail.as_view(), name="author_detail"),
+    path("author_update/<str:pk>/", views.AuthorUpdate.as_view(), name="author_update"),
+    path("author_delete/<str:pk>/", views.AuthorDelete.as_view(), name="author_delete"),
+    
 
 ]
 

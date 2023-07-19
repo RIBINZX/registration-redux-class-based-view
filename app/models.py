@@ -10,6 +10,15 @@ class BookAuthor(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
+    def get_absolute_url(self):
+        return reverse_lazy('web:author_detail', kwargs={'pk': self.pk})
+    
+    def get_update_url(self):
+        return reverse_lazy('web:author_update', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse_lazy('web:author_delete', kwargs={'pk': self.pk})
 
 
 class Book(models.Model):

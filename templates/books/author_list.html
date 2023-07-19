@@ -4,7 +4,7 @@
 
 <div class="page-header">
     <h3 class="page-title">
-       <a href="{% url 'web:index' %}">
+        <a href="{% url 'web:index' %}">
             <span class="page-title-icon bg-gradient-primary text-white mr-2">
                 <i class="mdi mdi-home"></i>
             </span> {{title}}
@@ -13,9 +13,11 @@
     {% if request.user.is_superuser %}
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
+            {% if request.user.is_superuser %}
             <li class="breadcrumb-item active" aria-current="page">
-                <a href="{% url 'web:book_create' %}" class="btn btn-lg btn-gradient-primary">New {{title}}</a>
+                <a href="{% url 'web:author_create' %}" class="btn btn-lg btn-gradient-primary">New {{title}}</a>
             </li>
+            {% endif %}
         </ul>
     </nav>
     {% endif %}
@@ -32,9 +34,8 @@
                             <tr>
                                 <th> # </th>
                                 <th> name </th>
-                                <th> year </th>
-                                <th> author </th>price
-                                <th> price </th>
+                                <th> bio </th>
+
                                 {% if request.user.is_superuser %}<th> Actions </th>{% endif %}
                             </tr>
                         </thead>
@@ -42,10 +43,8 @@
                             {% for object in object_list %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td> {{object.title}}</td>
-                                <td> {{object.year}} </td>
-                                <td> {{object.author}} </td>
-                                <td> {{object.price}} </td>
+                                <td> {{object.name}}</td>
+                                <td> {{object.bio}} </td>
                                 
                                 <td>
                                     <a href="{{object.get_absolute_url}}" class="btn btn-sm btn-circle btn-primary"><i class="mdi mdi-book-open-page-variant"></i></a>
