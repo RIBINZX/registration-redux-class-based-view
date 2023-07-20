@@ -21,12 +21,18 @@ urlpatterns = [
     path("book_detail/<str:pk>/", views.BookDetail.as_view(), name="book_detail"),
     path("book_update/<str:pk>/", views.BookUpdate.as_view(), name="book_update"),
     path("book_delete/<str:pk>/", views.BookDelete.as_view(), name="book_delete"),
+    path("book_table/", views.BookTable.as_view(), name="book_table"),
     
     path("author_create/", views.AuthorCreate.as_view(), name="author_create"),
     path("author_list/", views.AuthorList.as_view(), name="author_list"),
     path("author_detail/<str:pk>/", views.AuthorDetail.as_view(), name="author_detail"),
     path("author_update/<str:pk>/", views.AuthorUpdate.as_view(), name="author_update"),
     path("author_delete/<str:pk>/", views.AuthorDelete.as_view(), name="author_delete"),
+    
+    path("user_list/", views.UserList.as_view(), name="user_list"),
+    path("user_create/", views.UserCreate.as_view(), name="user_create"),
+    path("user_update/<str:pk>/", views.UserUpdate.as_view(), name="user_update"),
+    path("user_delete/<str:pk>/", views.UserDelete.as_view(), name="user_delete"),
     
 
 ]

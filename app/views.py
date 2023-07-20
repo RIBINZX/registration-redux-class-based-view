@@ -10,6 +10,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.contrib.auth.mixins import LoginRequiredMixin
 from. models import Book,BookAuthor
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 
@@ -45,6 +46,7 @@ class Error(TemplateView):
     template_name = "pages/error-404.html"
 
 
+# books
 class BookCreate(LoginRequiredMixin, CreateView):
     model = Book
     template_name = "books/book_create.html"
@@ -55,6 +57,11 @@ class BookCreate(LoginRequiredMixin, CreateView):
 class BookList(LoginRequiredMixin, ListView):
     model = Book
     template_name = "books/book_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Books"
+        return context
 
 
 class BookDetail(LoginRequiredMixin, DetailView):
@@ -74,6 +81,7 @@ class BookDelete(LoginRequiredMixin, DeleteView):
     success_url = "/book_list/"
 
 
+# authors
 class AuthorCreate(LoginRequiredMixin,CreateView):
     model=BookAuthor
     template_name="books/author_create.html"
@@ -83,6 +91,11 @@ class AuthorCreate(LoginRequiredMixin,CreateView):
 class AuthorList(LoginRequiredMixin, ListView):
     model = BookAuthor
     template_name = "books/author_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Authors"
+        return context
 
 
 class AuthorDetail(LoginRequiredMixin, DetailView):
@@ -100,3 +113,44 @@ class AuthorDelete(LoginRequiredMixin, DeleteView):
     model = BookAuthor
     template_name = "books/author_delete.html"
     success_url = "/author_list/"
+
+
+# users
+class UserList(LoginRequiredMixin, ListView):
+    model = User
+    template_name = "users/user_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Users"
+        return context
+    
+    
+class UserCreate(LoginRequiredMixin,CreateView):
+    model=User
+    template_name="users/user_create.html"
+    fields=("username","email","password")
+    success_url=reverse_lazy("web:user_list")
+    
+    
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    model=User
+    template_name="users/user_update.html"
+    fields=("username","email","first_name","last_name","is_superuser")
+    success_url=reverse_lazy("web:user_list")
+    
+    
+class UserDelete(LoginRequiredMixin, DeleteView):
+    model=User
+    template_name="users/user_delete.html"
+    success_url = reverse_lazy("web:user_list")
+    
+    
+class BookTable(LoginRequiredMixin, ListView):
+    model = Book
+    template_name = "books/book_table.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Books"
+        return context

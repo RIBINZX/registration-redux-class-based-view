@@ -15,7 +15,7 @@
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-                <a href="{% url 'web:book_create' %}" class="btn btn-lg btn-gradient-primary">New {{title}}</a>
+                <a href="{% url 'web:user_create' %}" class="btn btn-lg btn-gradient-primary">New {{title}}</a>
             </li>
         </ul>
     </nav>
@@ -32,31 +32,44 @@
                         <thead>
                             <tr>
                                 <th> # </th>
-                                <th> name </th>
-                                <th> year </th>
-                                <th> author </th>price
-                                <th> price </th>
-                                {% if request.user.is_superuser %}<th> Actions </th>{% endif %}
+                                <th> username </th>
+                                <th> email </th>
+                                <th> date join </th>
+                                <th> active </th>
+                                <th>Superuser</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
                             {% for object in object_list %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td> {{object.title}}</td>
-                                <td> {{object.year}} </td>
-                                <td> {{object.author}} </td>
-                                <td> {{object.price}} </td>
+                                <td> {{object.username}}</td>
+                                <td> {{object.email}} </td>
+                                <td> {{object.date_joined}} </td>
+                                {% if object.is_active %}
+                                <td> yes </td>
+                                {% else %}
+                                <td> no </td>
+                                {% endif %}
+
+                                {% if object.is_superuser %}
+                                <td> yes </td>
+                                {% else %}
+                                <td> no </td>
+                                {% endif %}
+                                
+                                
                                 
                                 <td>
-                                    <a href="{{object.get_absolute_url}}" class="btn btn-sm btn-circle btn-primary"><i class="mdi mdi-book-open-page-variant"></i></a>
-                                    
+
                                     {% if request.user.is_superuser %}
 
-                                    <a href="{{object.get_update_url}}" class="btn btn-sm btn-circle btn-info"><i class="mdi mdi-pencil"></i></a>
-                                    <a href="{{object.get_delete_url}}" class="btn btn-sm btn-circle btn-danger"><i class="mdi mdi-delete"></i></a>
+                                    <a href="{% url 'web:user_update' object.id %}" class="btn btn-sm btn-circle btn-info"><i class="mdi mdi-pencil"></i></a>
+                                    <a href="{% url 'web:user_delete' object.id %}" class="btn btn-sm btn-circle btn-danger"><i class="mdi mdi-delete"></i></a>
                                     
                                     {% endif %}
+
                                 </td>
                                                                
                             </tr>

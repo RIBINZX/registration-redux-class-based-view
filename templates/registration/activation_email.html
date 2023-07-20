@@ -3,38 +3,42 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.name }} {% trans "registration" %}</title>
 </head>
 
-<body>
-<p>
-    {% blocktrans with site_name=site.name %}
-    You (or someone pretending to be you) have asked to register an account at
-    {{ site_name }}.  If this wasn't you, please ignore this email
-    and your address will be removed from our records.
-    {% endblocktrans %}
-</p>
-<p>
-    {% blocktrans %}
-    To activate this account, please click the following link within the next
-    {{ expiration_days }} days:
-    {% endblocktrans %}
-</p>
-
-<p>
-    <a href="http://{{site.domain}}{% url 'registration_activate' activation_key %}">
-        {{site.domain}}{% url 'registration_activate' activation_key %}
-    </a>
-</p>
-<p>
-    {% blocktrans with site_name=site.name %}
-    Sincerely,
-    {{ site_name }} Management
-    {% endblocktrans %}
-</p>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc;">
+        <p>
+            {% blocktrans with site_name=site.name %}
+            You (or someone pretending to be you) have asked to register an account at
+            {{ site_name }}.  If this wasn't you, please ignore this email
+            and your address will be removed from our records.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans %}
+            To activate this account, please click the following link within the next
+            {{ expiration_days }} days:
+            {% endblocktrans %}
+        </p>
+        <button style="display: block; margin: 20px auto; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">
+            <a href="http://{{site.domain}}{% url 'registration_activate' activation_key %}" style="text-decoration: none; color: #fff;">
+                Activate your account
+            </a>
+        </button>
+        <p>
+            {% blocktrans with site_name=site.name %}
+            Sincerely,
+            {{ site_name }} Management
+            {% endblocktrans %}
+        </p>
+    </div>
 </body>
 
 </html>
+
 
 
 {% comment %}
